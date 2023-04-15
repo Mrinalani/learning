@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <title>Item Lister</title>
+</head>
+<body>
+  <header id="main-header" class="bg-success text-white p-4 mb-3">
+    <div class="container">
+      <h1 id="header-title">Item Lister <span style="display:none">123</span></h1>
+    </div>
+  </header>
+  <div class="container">
+   <div id="main" class="card card-body">
+    <h2 class="title">Add Items</h2>
+    <form class="form-inline mb-3">
+      <input type="text" class="form-control mr-2">
+      <input type="submit" class="btn btn-dark" value="Submit">
+    </form>
+    <h2 class="title">Items</h2>
+    <ul id="items" class="list-group">
+      <li class="list-group-item">Item 1</li>
+      <li class="list-group-item">Item 2</li>
+      <li class="list-group-item">Item 3</li>
+      <li class="list-group-item">Item 4</li>
+    </ul>
+   </div>
+  </div>
+<script>
+         //// parentNode
+    //var items = document.querySelector('#items')
+    // console.log(items.parentNode)
+    // items.parentNode.style.backgroundColor = '#f4f4f4'
+    // console.log(items.parentNode.parentNode)
+    // console.log(items.parentNode.parentNode.parentNode)
+
+           ////parentElement
+    // console.log(items.parentElement)
+    // items.parentElement.style.backgroundColor = '#f4f4f4'
+    // console.log(items.parentElement.parentElement)
+    // console.log(items.parentElement.parentNode.parentElement)
+
+        ////childNodes
+    //   console.log(items.childNodes)
+
+    //   console.log(items.children)
+    //   console.log(items.children[1])
+    // items.children[1].style.backgroundColor = 'yellow'
+
+        //// firstchild
+        // console.log(items.firstChild)
+
+        // console.log(items.firstElementChild)
+        // items.firstElementChild.textContent = 'hello'
+
+        //// firstchild
+        //  console.log(items.lastChild)
+
+        //  console.log(items.lastElementChild)
+        //  items.lastElementChild.textContent = 'hello4'
+
+        ////nextsibling
+        //console.log(items.nextSibling)
+
+        //console.log(items.nextElementSibling)
+
+        ////previoussibling
+        //console.log(items.previousSibling)
+
+        //console.log(items.previousElementSibling)
+        //items.previousElementSibling.style.color='green'
+
+        ////creatediv
+        var newdiv = document.createElement('div')
+        newdiv.className='hello'
+        newdiv.id='hello1'
+        newdiv.setAttribute('title','hello div')
+        var newdivtext = document.createTextNode('hello World')
+        newdiv.appendChild(newdivtext)
+
+        var container = document.querySelector('header .container')
+        var h1 = document.querySelector('header h1')
+       // console.log(newdiv)
+       newdiv.style.fontSize='30px'
+        container.insertBefore(newdiv,h1)
+
+        //var ul = document.querySelector('body .list-group')
+        //console.log(ul)
+        //var li = document.querySelector('body l1')
+        var items = document.querySelector('#items')
+        items.prepend(newdiv)
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let myobj = {
+            name:"domanic",
+            age:23
+        };
+        let myobj_serialized =JSON.stringify(myobj);
+        localStorage.setItem("myobj",myobj_serialized)
+        let myobj_deserialized = JSON.parse(localStorage.getItem("myobj"));
+        console.log(myobj_deserialized)
+    </script>
+</body>
+</html>

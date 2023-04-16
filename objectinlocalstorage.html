@@ -12,10 +12,13 @@
             name:"domanic",
             age:23
         };
-        let myobj_serialized =JSON.stringify(myobj);
-        localStorage.setItem("myobj",myobj_serialized)
-        let myobj_deserialized = JSON.parse(localStorage.getItem("myobj"));
-        console.log(myobj_deserialized)
+
+        localStorage.setItem("myobj", myobj);
+         console.log(localStorage)
+        // let myobj_serialized =JSON.stringify(myobj);
+        // localStorage.setItem("myobj",myobj_serialized)
+        // let myobj_deserialized = JSON.parse(localStorage.getItem("myobj"));
+        // console.log(myobj_deserialized)
     </script>
 </body>
 </html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body >
+    <h2>EXPENCE TRACKER</h2>
+   <form onsubmit ="savetolocalstorage(event)" id="element">
+      <lable>expenseamount</lable>
+      <input type="number" name="expenseamount" id="utag" required/><br><br>
+      <lable>discription</lable>
+      <input type="text " name="discription" id="itag" required/><br><br>
+      <lable>category</lable>
+      <input type="category " name="category" id="ptag" required/><br><br>
+      <button>Add Expense</button><br><br>
+      <ul id="listofitems"></ul>
+      <button id="btn"></button>
+   </form>
+   <script>
+          function savetolocalstorage(event){
+         event.preventDefault();
+         const expenseamount= event.target.expenseamount.value;
+         //console.log(event.target.expenseamount)
+         const discription= event.target.discription.value;
+         const category=event.target.category.value;
+
+         let obj = {
+             expenseamount,
+             discription,
+             category
+         }
+         localStorage.setItem(obj.expenseamount,JSON.stringify(obj))
+             showuseronscreen(obj)
+           console.log(obj.expenseamount)
+       }
+
+        function showuseronscreen(obj){
+            const parentelement = document.getElementById('listofitems')
+            const children = document.createElement('li')
+            children.textContent = obj.expenseamount +"-"+ obj.description+"-"+obj.category
+
+            const deletebutton = document.createElement('input')
+            deletebutton.type ="button"
+            deletebutton.value = 'Delete Expense'
+            deletebutton.onclick = () => {
+                localStorage.removeItem(obj.description)
+                parentelement.removeChild(children)
+            }
+          
+            const editbutton = document.createElement('input')
+            editbutton.type ="button"
+            editbutton.value = 'Edit Expense'
+            editbutton.onclick = () => {
+                localStorage.removeItem(obj.description)
+                parentelement.removeChild(children)
+
+                document.getElementById('utag').value = obj.expenseamount
+                document.getElementById('itag').value = obj.description
+                document.getElementById('ptag').value = obj.category
+                
+            }
+
+
+            children.appendChild(deletebutton)
+            children.appendChild(editbutton)
+            parentelement.appendChild(children)
+        }
+   </script>
+    </body>
+</html>

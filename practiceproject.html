@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        body{
+            background-color: rgb(239, 234, 229);
+        }
+
+        .container{
+        border: 2px solid black;
+        padding:20px;
+        margin: 20px,20px ;
+        background-color: rgb(235, 240, 243);
+        height:100%;
+}
+        form {
+         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        height:500px
+}
+   lable{
+    text-transform: uppercase;
+}
+     input{
+        width:50%;
+        height: 5%;
+     }
+     #btn{
+        width: 50%;
+        text-align: center;
+        height:5%
+     }
+
+        </style>
+    
+</head>
+<body>
+       <div class="container">
+    <form action="" onsubmit="addtolocalstorage(event)">
+    <lable for="expenseamount" >choose expenseamount</lable>
+    <input type="text"  name="a" id="expenseamount" >
+
+    <lable for="description">choose description</lable>
+    <input type="text" id="description" name="b">
+
+    <lable for="category">choose category</lable>
+   <select name="c" id="category" >
+   <option value="movie">movies</option>
+   <option value="adventure">adventures</option>
+   <option value="entertainment">entertainments</option>
+   </select>
+
+   <button id="btn" > Add Expense</button>
+
+   <ul id="ultags">
+
+   </ul>
+    
+</form>
+</div>
+<script>
+    function addtolocalstorage(event){
+        event.preventDefault();
+        const expenseamount = event.target.a.value;
+        const description = event.target.b.value;
+        const category = event.target.c.value;
+
+        let obj = {
+            expenseamount,
+            description,
+            category
+        }
+
+       // localStorage.setItem(obj.des,JSON.stringify(obj))
+        localStorage.setItem(obj.description,JSON.stringify(obj))
+        showonscreen(obj); 
+    }
+
+    function showonscreen(obj){
+        var parent = document.getElementById('ultag');
+        var children = document.createElement('li')
+      children.textContent=obj.expenseamount+" "+obj.description+" "+obj.category
+
+    //   const parentelement = document.getElementById('ultag')
+    //          const children = document.createElement('li')
+    //    newlist.textContent = obj.expenseamount +"-"+ obj.description+"-"+obj.category
+
+
+    parent.appendChild(children)
+
+    }
+</script>
+</body>
+</html>

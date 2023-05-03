@@ -21,7 +21,8 @@
    <script>
          function savetolocalstorage(event){
          event.preventDefault();
-         const name= event.target.username.value;
+          const name= event.target.username.value;
+          console.log(name)
          const email= event.target.emailId.value;
          const phonenumber=event.target.phonenumber.value;
 
@@ -37,33 +38,33 @@
 
         function showuseronscreen(obj){
             const parentelement = document.getElementById('listofitems')
-            const children = document.createElement('li')
-            children.textContent = obj.name +"-"+ obj.email+"-"+obj.phonenumber
+             const children = document.createElement('li')
+             children.textContent = obj.name +"-"+ obj.email+"-"+obj.phonenumber
 
-            const deletebutton = document.createElement('input')
-            deletebutton.type ="button"
-            deletebutton.value = 'delete'
-            deletebutton.onclick = () => {
-                localStorage.removeItem(obj.email)
-                parentelement.removeChild(children)
-            }
+            // const deletebutton = document.createElement('input')
+            // deletebutton.type ="button"
+            // deletebutton.value = 'delete'
+            // deletebutton.onclick = () => {
+            //     localStorage.removeItem(obj.email)
+            //     parentelement.removeChild(children)
+            // }
           
-            const editbutton = document.createElement('input')
-            editbutton.type ="button"
-            editbutton.value = 'edit'
-            editbutton.onclick = () => {
-                localStorage.removeItem(obj.email)
-                parentelement.removeChild(children)
+            // const editbutton = document.createElement('input')
+            // editbutton.type ="button"
+            // editbutton.value = 'edit'
+            // editbutton.onclick = () => {
+            //     localStorage.removeItem(obj.email)
+            //     parentelement.removeChild(children)
 
-                document.getElementById('utag').value = obj.name
-                document.getElementById('itag').value = obj.email
-                document.getElementById('ptag').value = obj.phonenumber
+            //     document.getElementById('utag').value = obj.name
+            //     document.getElementById('itag').value = obj.email
+            //     document.getElementById('ptag').value = obj.phonenumber
                 
-            }
+            // }
 
 
-            children.appendChild(deletebutton)
-            children.appendChild(editbutton)
+            // children.appendChild(deletebutton)
+            // children.appendChild(editbutton)
             parentelement.appendChild(children)
         }
    </script>

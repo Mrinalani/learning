@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body >
+   <form onsubmit ="savetolocalstorage(event)" id="element">
+      <lable>Name</lable>
+      <input type="text " name="username" id="utag" required/>
+      <lable>EmailId</lable>
+      <input type="email " name="emailId" id="itag" required/>
+      <lable>phone number</lable>
+      <input type="tel " name="phonenumber" id="ptag" required/>
+      <button>submit</button>
+      <ul id="listofitems"></ul>
+      <!-- <button id="btn"></button> -->
+   </form>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+   <script>
+         function savetolocalstorage(event){
+         event.preventDefault();
+          const name= event.target.username.value;
+          console.log(name)
+         const email= event.target.emailId.value;
+         const phonenumber=event.target.phonenumber.value;
+
+         let obj = {
+             name,
+             email,
+             phonenumber
+         }
+         localStorage.setItem(obj.email,JSON.stringify(obj))
+         axios.post("https://crudcrud.com/api/ffa5e5c87e5143d2bc52fceb4b07998e/appointmentDate",obj)
+           .then((response)=>{
+            showuseronscreen(response.data)
+         })
+
+         .catch((err)=>{
+            document.body.innerHTML = document.body.innerHTML + '<h4>something went wrong</h4>'
+            console.log(err)
+         })
+
+      }
+
+      axios.get("https://crudcrud.com/api/ffa5e5c87e5143d2bc52fceb4b07998e/appointmentDate")
+  .then((response)=>{
+    console.log(response);
+    showAppointmentsOnScreen(response.data);
+  })
+  .catch((error)=>{
+    console.log(error);
+  });
+
+
+
+  function showAppointmentsOnScreen(appointments) {
+  const parentElement = document.getElementById('listofitems');
+
+  // Remove all existing appointments from the screen
+  while (parentElement.firstChild) {
+    parentElement.removeChild(parentElement.firstChild);
+  }
+
+  // Loop through each appointment object and create a list item
+  appointments.forEach((appointment) => {
+    const listItem = document.createElement('li');
+    const appointmentInfo = document.createTextNode(`${appointment.name} - ${appointment.email} - ${appointment.phonenumber}`);
+    listItem.appendChild(appointmentInfo);
+
+    // Add a delete button to the list item
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Delete';
+    deleteButton.addEventListener('click', () => {
+      // Remove the appointment from local storage and the screen
+      localStorage.removeItem(appointment.email);
+      parentElement.removeChild(listItem);
+    });
+    listItem.appendChild(deleteButton);
+
+    // Add an edit button to the list item
+    const editButton = document.createElement('button');
+    editButton.innerText = 'Edit';
+    editButton.addEventListener('click', () => {
+      // Remove the appointment from local storage
+      localStorage.removeItem(appointment.email);
+
+      // Pre-fill the form with the appointment data
+      document.getElementById('utag').value = appointment.name;
+      document.getElementById('itag').value = appointment.email;
+      document.getElementById('ptag').value = appointment.phonenumber;
+
+      // Remove the appointment from the screen
+      parentElement.removeChild(listItem);
+    });
+    listItem.appendChild(editButton);
+
+    parentElement.appendChild(listItem);
+  });
+}
+
+    //   function showNewUserOnScreen(user){
+    //     document.getElementById('email').value = '';
+    //     document.getElementById('username').value = '';
+    //     document.getElementById('email').value = '';
+    //   }
+
+    function shownewuseronscreen(obj){
+        document.getElementById('utag').value = ''
+                document.getElementById('itag').value = ''
+                document.getElementById('ptag').value = ''
+
+        const parentnode = document.getElementById('listofitems')
+        const child = `<li id=${obj.email}</li>`
+
+            parentnode.innerHTML =parentnode.innerHTML+child
+    }
+
+        function showuseronscreen(obj){
+            const parentelement = document.getElementById('listofitems')
+             const children = document.createElement('li')
+             children.textContent = obj.name +"-"+ obj.email+"-"+obj.phonenumber
+
+            const deletebutton = document.createElement('input')
+            deletebutton.type ="button"
+            deletebutton.value = 'delete'
+            deletebutton.onclick = () => {
+                localStorage.removeItem(obj.email)
+                parentelement.removeChild(children)
+            }
+          
+            const editbutton = document.createElement('input')
+            editbutton.type ="button"
+            editbutton.value = 'edit'
+            editbutton.onclick = () => {
+                localStorage.removeItem(obj.email)
+                parentelement.removeChild(children)
+
+                document.getElementById('utag').value = obj.name
+                document.getElementById('itag').value = obj.email
+                document.getElementById('ptag').value = obj.phonenumber
+                
+            }
+
+
+            children.appendChild(deletebutton)
+            children.appendChild(editbutton)
+            parentelement.appendChild(children)
+        }
+   </script>
+    </body>
+</html>

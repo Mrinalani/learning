@@ -8,16 +8,17 @@
 </head>
 <body >
    <form onsubmit ="savetolocalstorage(event)" id="element">
-      <lable>Name</lable>
+      <lable>ProductName</lable>
       <input type="text " name="username" id="utag" required/>
-      <lable>EmailId</lable>
-      <input type="email " name="emailId" id="itag" required/>
-      <lable>phone number</lable>
+      <lable>orderId</lable>
+      <input type="number " name="emailId" id="itag" required/>
+      <lable>SellingPrice</lable>
       <input type="tel " name="phonenumber" id="ptag" required/>
-      <button>submit</button>
+      <button>AddProduct</button>
       <ul id="listofitems"></ul>
       <!-- <button id="btn"></button> -->
    </form>
+   <li class="total" id="value"> Total Value worth of product:</li>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
    <script>
          function savetolocalstorage(event){
@@ -167,6 +168,13 @@ function showAppointmentsOnScreen(appointments) {
             children.appendChild(editbutton)
             parentelement.appendChild(children)
         }
+
+        //  const parentelement = document.getElementById('value')
+        //       const children = document.createElement('button')
+        //       children.textContent('total')
+        // //      parentelement.appendChild(children)
+
+        
    </script>
     </body>
 </html>

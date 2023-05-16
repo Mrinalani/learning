@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<body>
+   <form onsubmit="savetolocalstorage(event)" id="element">
+      <label>ProductName</label>
+      <input type="text" name="username" id="utag" required/>
+      <label>orderId</label>
+      <input type="number" name="emailId" id="itag" required/>
+      <label>SellingPrice</label>
+      <input type="number" name="sellingprice" id="ptag" required/>
+      <button type="submit">AddProduct</button>
+      <ul id="listofitems"></ul>
+   </form>
+   <li class="total" id="value">Total Value worth of product: 0</li>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+   <script>
+      let sellingPrices = [];
+
+      function savetolocalstorage(event) {
+         event.preventDefault();
+         const name = event.target.username.value;
+         const email = event.target.emailId.value;
+         const phonenumber = event.target.sellingprice.value;
+         const sellingPrice = parseFloat(event.target.sellingprice.value);
+
+         let obj = {
+            name,
+            email,
+            phonenumber,
+            sellingPrice
+         };
+
+         sellingPrices.push(sellingPrice);
+
+         localStorage.setItem(obj.email, JSON.stringify(obj));
+         axios.post("https://crudcrud.com/api/744a3dc5d1054fcc95370cd4075e8baf/appointmentDate", obj)
+            .then((response) => {
+               showuseronscreen(response.data);
+               calculateTotal();
+            })
+            .catch((err) => {
+               document.body.innerHTML += '<h4>something went wrong</h4>';
+               console.log(err);
+            });
+
+         event.target.reset();
+      }
+
+      function showAppointmentsOnScreen(appointments) {
+         const parentElement = document.getElementById('listofitems');
+
+         while (parentElement.firstChild) {
+            parentElement.removeChild(parentElement.firstChild);
+         }
+
+         appointments.forEach((appointment) => {
+            const listItem = document.createElement('li');
+            const appointmentInfo = document.createTextNode(`${appointment.name} - ${appointment.email} - ${appointment.phonenumber}`);
+            listItem.appendChild(appointmentInfo);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteButton.addEventListener('click', () => {
+               localStorage.removeItem(appointment.email);
+               axios.delete(`https://crudcrud.com/api/744a3dc5d1054fcc95370cd4075e8baf/appointmentDate/${appointment._id}`)
+                  .then((response) => {
+                     parentElement.removeChild(listItem);
+                     const index = sellingPrices.findIndex(price => price === appointment.sellingPrice);
+                     if (index !== -1) {
+                        sellingPrices.splice(index, 1);
+                     }
+                     calculateTotal();
+                  })
+                  .catch((error) => {
+                     console.log(error);
+                  });
+            });
+            listItem.appendChild(deleteButton);
+
+            const editButton = document.createElement('button');
+            editButton.innerText = 'Edit';
+            editButton.addEventListener('click', () => {
+               localStorage.removeItem(appointment.email);
+               axios.delete(`https://crudcrud
+
+
+               .com/api/744a3dc5d1054fcc95370cd4075e8baf/appointmentDate/${appointment._id}`)
+.then((response) => {
+parentElement.removeChild(listItem);
+const index = sellingPrices.findIndex(price => price === appointment.sellingPrice);
+if (index !== -1) {
+sellingPrices.splice(index, 1);
+}
+calculateTotal();
+})
+.catch((error) => {
+console.log(error);
+});
+
+document.getElementById('utag').value = appointment.name;
+           document.getElementById('itag').value = appointment.email;
+           document.getElementById('ptag').value = appointment.sellingPrice;
+
+           parentElement.removeChild(listItem);
+        });
+        listItem.appendChild(editButton);
+
+        parentElement.appendChild(listItem);
+     });
+  }
+
+  function showuseronscreen(obj) {
+     const parentelement = document.getElementById('listofitems');
+     const children = document.createElement('li');
+     children.textContent = obj.name + "-" + obj.email + "-" + obj.phonenumber;
+
+     const deletebutton = document.createElement('input');
+     deletebutton.type = "button";
+     deletebutton.value = 'delete';
+     deletebutton.onclick = () => {
+        localStorage.removeItem(obj.email);
+        parentelement.removeChild(children);
+        const index = sellingPrices.findIndex(price => price === obj.sellingPrice);
+        if (index !== -1) {
+           sellingPrices.splice(index, 1);
+        }
+        calculateTotal();
+     };
+
+     const editbutton = document.createElement('input');
+     editbutton.type = "button";
+     editbutton.value = 'edit';
+     editbutton.onclick = () => {
+        localStorage.removeItem(obj.email);
+        parentelement.removeChild(children);
+
+        document.getElementById('utag').value = obj.name;
+        document.getElementById('itag').value = obj.email;
+        document.getElementById('ptag').value = obj.sellingPrice;
+
+        calculateTotal();
+     };
+
+     children.appendChild(deletebutton);
+     children.appendChild(editbutton);
+     parentelement.appendChild(children);
+  }
+
+  function calculateTotal() {
+     const total = sellingPrices.reduce((sum, price) => sum + price, 0);
+     const totalElement = document.getElementById('value');
+     totalElement.textContent = 'Total Value worth of product: ' + total.toFixed(2);
+  }
+
+  axios.get("https://crudcrud.com/api/744a3dc5d1054fcc95370cd4075e8baf/appointmentDate")
+     .then((response) => {
+        console.log(response);
+        showAppointmentsOnScreen(response.data);
+        calculateTotal();
+     })
+     .catch((error) => {
+        console.log(error);
+     });
+
+
+    </script>
+</body>
+</html>

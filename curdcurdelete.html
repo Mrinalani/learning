@@ -33,7 +33,7 @@
              phonenumber
          }
          localStorage.setItem(obj.email,JSON.stringify(obj))
-         axios.post("https://crudcrud.com/api/11718b38d3314d5daab4a64124df4232/appointmentDate",obj)
+         axios.post("https://crudcrud.com/api/03ace1bb3b914bbc80dc4c0601f5a183/appointmentDate",obj)
            .then((response)=>{
             showuseronscreen(response.data)
          })
@@ -45,7 +45,7 @@
 
       }
 
-      axios.get("https://crudcrud.com/api/11718b38d3314d5daab4a64124df4232/appointmentDate")
+      axios.get("https://crudcrud.com/api/03ace1bb3b914bbc80dc4c0601f5a183/appointmentDate")
   .then((response)=>{
     console.log(response);
     showAppointmentsOnScreen(response.data);
@@ -130,11 +130,6 @@ function showAppointmentsOnScreen(appointments) {
     //   }
 
 
-
-
-    
-
-    
 
         function showuseronscreen(obj){
             const parentelement = document.getElementById('listofitems')

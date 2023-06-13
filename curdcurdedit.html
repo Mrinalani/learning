@@ -33,7 +33,7 @@
              phonenumber
          }
          localStorage.setItem(obj.email,JSON.stringify(obj))
-         axios.post("https://crudcrud.com/api/744a3dc5d1054fcc95370cd4075e8baf/appointmentDate",obj)
+         axios.post("https://crudcrud.com/api/04766b07f62844329581e5b3a75432ff/appointmentDate",obj)
            .then((response)=>{
             showuseronscreen(response.data)
          })
@@ -45,9 +45,8 @@
 
       }
 
-      axios.get("https://crudcrud.com/api/744a3dc5d1054fcc95370cd4075e8baf/appointmentDate")
+      axios.get("https://crudcrud.com/api/04766b07f62844329581e5b3a75432ff/appointmentdata")
   .then((response)=>{
-    console.log(response);
     showAppointmentsOnScreen(response.data);
   })
   .catch((error)=>{
@@ -80,7 +79,7 @@ function showAppointmentsOnScreen(appointments) {
     deleteButton.addEventListener('click', () => {
       // Remove the appointment from local storage, CRUD CRUD, and the screen
       localStorage.removeItem(appointment.email);
-      axios.delete(`https://crudcrud.com/api/744a3dc5d1054fcc95370cd4075e8baf/appointmentDate/${appointment._id}`)
+      axios.delete(`https://crudcrud.com/api/04766b07f62844329581e5b3a75432ff/${appointment._id}`)
         .then((response) => {
           parentElement.removeChild(listItem);
           console.log(`${appointment._id}`)
@@ -98,7 +97,7 @@ function showAppointmentsOnScreen(appointments) {
       // Remove the appointment from local storage
       localStorage.removeItem(appointment.email);
 
-      axios.delete(`https://crudcrud.com/api/744a3dc5d1054fcc95370cd4075e8baf/appointmentDate/${appointment._id}`)
+      axios.delete(`https://crudcrud.com/api/04766b07f62844329581e5b3a75432ff/${appointment._id}`)
         .then((response) => {
           parentElement.removeChild(listItem);
           console.log(`${appointment._id}`)

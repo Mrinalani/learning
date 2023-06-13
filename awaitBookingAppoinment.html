@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form id="form"  action="" onsubmit="savetolocalstorage(event)">
+        <label>Name</label>
+        <input type="text" name="username" id="name" required>
+
+        <label>Email</label>
+        <input type="email" name="emailid" id="email" required >
+
+        <label>Number</label>
+        <input type="number" name="phonenumber" id="phonenumber" required>
+
+        <input type="submit" value="Submit" id="submit" >
+        <ul id="listofitems"></ul>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+    <script>
+async function savetolocalstorage(event) {
+    event.preventDefault();
+    const name = event.target.name.value;
+    const email = event.target.emailid.value;
+    const phonenumber = event.target.phonenumber.value;
+
+    const obj = {
+        name,
+        email,
+        phonenumber
+    };
+
+    try {
+        const response = await axios.post("https://crudcrud.com/api/df30a47bd1114040ac0ef1bbd7eca9b1/bookingAppoinment", obj);
+        showUserOnScreen(response.data);
+    } catch (error) {
+        console.log(error);
+    }
+}
+function showUserOnScreen(obj) {
+    const parentNode = document.getElementById('listofitems');
+
+    const childHtml = `<li id="${obj._id}">${obj.name} -${obj.email}- ${obj.phonenumber}
+        <button onclick="deleteUser('${obj._id}')">delete</button>
+        <button onclick="editUserDetail('${obj._id}','${obj.name}','${obj.email}','${obj.phonenumber}')">edit</button>
+    </li>`;
+
+    parentNode.innerHTML = parentNode.innerHTML + childHtml;
+}
+
+
+
+ async function deleteUser(userid) {
+ try{
+    axios.delete(`https://crudcrud.com/api/df30a47bd1114040ac0ef1bbd7eca9b1/bookingAppoinment/${userid}`)
+     removeUserFromScreen(userid)
+ }
+ catch(err){
+    console.log(err)
+ }
+        
+
+}
+
+function removeUserFromScreen(userid) {
+    const parentNode = document.getElementById('listofitems');
+    const childNodeToBeDeleted = document.getElementById(userid);
+    if (childNodeToBeDeleted) {
+        parentNode.removeChild(childNodeToBeDeleted);
+    }
+}
+
+
+function editUserDetail(userid, n, e, p) {
+    console.log('edit user details and refill it');
+    document.getElementById('name').value = n;
+    document.getElementById('email').value = e;
+    document.getElementById('phonenumber').value = p;
+    deleteUser(userid)
+}
+
+
+window.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await axios.get("https://crudcrud.com/api/df30a47bd1114040ac0ef1bbd7eca9b1/bookingAppoinment");
+        for (var i = 0; i < response.data.length; i++) {
+            showUserOnScreen(response.data[i]);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+    </script>
+
+
+    
+</body>
+</html>

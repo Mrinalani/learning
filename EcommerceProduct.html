@@ -26,13 +26,13 @@ function savetolocalstorage(event) {
    event.preventDefault();
    const name = event.target.username.value;
    const email = event.target.emailId.value;
-   const phonenumber = event.target.sellingprice.value;
+  // const phonenumber = event.target.sellingprice.value;
    const sellingPrice = parseFloat(event.target.sellingprice.value);
 
    let obj = {
       name,
       email,
-      phonenumber,
+     /// phonenumber,
       sellingPrice
    };
 
@@ -60,12 +60,12 @@ function savetolocalstorage(event) {
      deletebutton.onclick = () => {
         parentelement.removeChild(children);
         deleteUserFromScreen(obj)
-         const index = sellingPrices.findIndex(price => price === obj.sellingPrice);
-         if (index !== -1) {
-            sellingPrices.splice(index, 1);
-         }
-         calculateTotal();
-      };
+      //    const index = sellingPrices.findIndex(price => price === obj.sellingPrice);
+      //    if (index !== -1) {
+      //       sellingPrices.splice(index, 1);
+      //    }
+      //    calculateTotal();
+       };
      children.appendChild(deletebutton);
      parentelement.appendChild(children);
   }
